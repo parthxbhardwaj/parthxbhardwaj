@@ -7,7 +7,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
-    <link rel="preload" href="https://jpcdn.it/img/8064740b0d0e39b3371fb544ec314c71.jpg" as="image">
     <style>
         html, body {
             height: 100%;
@@ -22,18 +21,31 @@
             justify-content: flex-start;
             align-items: center;
             flex-direction: column;
-            background-image: url('https://jpcdn.it/img/8064740b0d0e39b3371fb544ec314c71.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             padding-top: 50px; /* Adjust this value to move the content further down or up */
+            opacity: 0;
+            animation: fadeIn 2s forwards;
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
         }
         h1 {
             font-family: 'Cormorant Garamond', serif; /* Use the Cormorant Garamond font */
             font-weight: 400; /* You can adjust the font weight as needed */
             font-style: normal; /* You can use 'italic' for italics */
-            font-size: 1.5em; /* Decreased the font size further */
+            font-size: 1.5em; /* Base font size for mobile devices */
             margin-bottom: 20px;
+        }
+        @media (min-width: 600px) {
+            h1 {
+                font-size: 2em; /* Larger font size for tablets and small desktops */
+            }
+        }
+        @media (min-width: 1024px) {
+            h1 {
+                font-size: 2.5em; /* Even larger font size for large desktops */
+            }
         }
         .input-container {
             margin-top: 50px; /* Adjusted the margin to move the input box down more */
