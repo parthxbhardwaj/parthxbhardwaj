@@ -126,22 +126,24 @@
 <body>
     <h1>PARTH BHARDWAJ</h1>
     <div class="input-container">
-        <label for="amount">INSERT AMOUNT IN INR:</label>
-        <div class="input-wrapper">
-            <input type="number" id="amount" name="amount" placeholder="Enter amount">
-        </div>
-        <input type="submit" value="Submit" onclick="submitAmount()">
+        <form id="submitForm" action="upi://pay" method="GET">
+            <label for="amount">INSERT AMOUNT IN INR:</label>
+            <div class="input-wrapper">
+                <input type="number" id="amount" name="am" placeholder="Enter amount">
+            </div>
+            <input type="submit" value="Submit">
+        </form>
     </div>
-    
-<script>
-    window.onload = function() {
-        const urlParams = new URLSearchParams(window.location.search);
-        const amountParam = urlParams.get('amount');
-        if (amountParam) {
-            document.getElementById('amount').value = amountParam;
-            document.getElementById('submitForm').submit(); // Automatically submit the form
-        }
-    };
-</script>
+
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const amountParam = urlParams.get('amount');
+            if (amountParam) {
+                document.getElementById('amount').value = amountParam;
+                document.getElementById('submitForm').submit(); // Automatically submit the form
+            }
+        };
+    </script>
 </body>
 </html>
