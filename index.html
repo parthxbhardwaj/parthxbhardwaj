@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Pay Parth Bhardwaj using UPI">
+    <meta name="author" content="Parth Bhardwaj">
+    <meta name="keywords" content="UPI, Payment, Parth Bhardwaj, Pay">
     <title>Parth Bhardwaj</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,8 +31,9 @@
         input[type="submit"] { padding: 10px 20px; font-size: 1em; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; margin-top: 10px; }
         input[type="submit"]:hover { background-color: #45a049; }
         .image-container { margin-top: 20px; }
-        .image-container img { width: 200px; height: 200px; border: 2px solid white; } /* Increased size of the image */
+        .image-container img { width: 200px; height: 200px; border: 2px solid white; }
         @media (max-width: 600px) { .input-wrapper, input[type="submit"] { display: block; margin: 0 auto; margin-bottom: 10px; } input[type="submit"] { margin-top: 10px; } }
+        footer { position: fixed; bottom: 0; left: 0; width: 100%; background-color: black; padding: 10px; text-align: center; }
     </style>
 </head>
 <body>
@@ -47,7 +50,7 @@
         <img src="https://raw.githubusercontent.com/parthxbhardwaj/parthxbhardwaj/main/1719103491320.jpg" alt="QR Code for UPI Payment">
     </div>
 
-    <footer style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: black; padding: 10px; text-align: center;">
+    <footer>
         Made with ❤️ by Parth Bhardwaj
     </footer>
 
@@ -62,7 +65,7 @@
 
         function submitAmount() {
             const amount = document.getElementById('amount').value;
-            if (!amount || isNaN(amount)) {
+            if (!amount || isNaN(amount) || amount <= 0) {
                 alert('Please enter a valid amount.');
                 return;
             }
