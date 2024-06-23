@@ -26,28 +26,44 @@
         .input-container { margin-top: 75px; opacity: 0; transform: translateX(100%); animation: fadeInFromRight 1s forwards 0.5s; }
         @keyframes fadeInFromRight { to { opacity: 1; transform: translateX(0); } }
         .input-wrapper { position: relative; display: inline-block; width: 300px; margin-bottom: 15px; }
-        .amount-wrapper::before { content: '₹'; position: absolute; left: 30px; top: 50%; transform: translateY(-50%); font-size: 1.85em; color: FFD700; }
-        input[type="number"], input[type="text"] { padding: 12px; font-size: 1.10em; border: none; box-sizing: border-box; width: calc(100% - 46px); background-color: transparent; color: white; text-align: center; font-family: 'Poppins', sans-serif; outline: none; position: relative; transition: background-color 0.3s ease, box-shadow 0.3s ease; }
+        .amount-wrapper::before { content: '₹'; position: absolute; left: 30px; top: 50%; transform: translateY(-50%); font-size: 1.85em; color: #FFD700; }
+        input[type="number"], input[type="text"] {
+    padding: 12px;
+    font-size: 1.10em;
+    border: 2px solid transparent; /* Add a transparent border */
+    box-sizing: border-box;
+    width: calc(100% - 46px);
+    background-color: transparent;
+    color: white;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    outline: none;
+    position: relative;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
         input[type="number"]::placeholder, input[type="text"]::placeholder { color: rgba(255, 255, 255, 0.8); font-family: 'Poppins', sans-serif; font-size: 0.9em; transition: transform 0.3s ease, opacity 0.3s ease; }
         input:focus { background-color: rgba(255, 255, 255, 0.1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
         input:focus::placeholder { transform: translateY(-20px); opacity: 0; }
         .input-wrapper .input-line { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: 2px; width: 0; background-color: white; transition: width 0.3s ease; }
         .input-wrapper input:focus + .input-line { width: 80%; }
-        .submit-btn { padding: 12px 60px; font-size: 1.5em; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; margin-top: 15px; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s ease; font-family: 'Poppins', sans-serif; position: relative; overflow: hidden; }
-        .submit-btn span { position: relative; z-index: 1; }
-        .submit-btn img { position: absolute; top: 50%; right: 10px; transform: translateY(-50%); height: 1.5em; width: auto; transition: transform 0.3s ease; }
-        .submit-btn:hover img { transform: scale(1.5); }
+        .button-container { display: flex; justify-content: center; gap: 10px; margin-top: 15px; }
+        .button { padding: 12px 30px; font-size: 1.2em; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; transition: background-color 0.3s ease; font-family: 'Poppins', sans-serif; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+        .button span { position: relative; z-index: 1; }
+        .button img { position: absolute; top: 50%; right: 10px; transform: translateY(-50%); height: 1.5em; width: auto; transition: transform 0.3s ease; }
+        .button:hover img { transform: scale(1.5); }
         .image-container { margin-top: 20px; opacity: 0; animation: fadeInQR 2s forwards 1s; }
         .image-container img { width: 200px; height: 200px; border: 2px solid white; cursor: pointer; }
+        #qrcode { margin-top: 20px; padding: 10px; background-color: white; display: none; }
         @keyframes fadeInQR { to { opacity: 1; } }
-        @media (max-width: 600px) { .input-wrapper, .submit-btn { display: block; margin: 0 auto; margin-bottom: 15px; } .submit-btn { margin-top: 15px; } }
+        @media (max-width: 600px) { .input-wrapper, .button { display: block; margin: 0 auto; margin-bottom: 15px; } }
         footer { position: fixed; bottom: 0; left: 0; width: 100%; background-color: black; padding: 10px; text-align: center; }
         
         /* CSS code to increase font size when input is focused */
-.input-wrapper.amount-wrapper input[type="number"]:focus {
-    font-size: 1.7em; /* Increase font size when focused */
-}
+        .input-wrapper.amount-wrapper input[type="number"]:focus {
+            font-size: 1.7em; /* Increase font size when focused */
+        }
     </style>
+    <script src="https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js"></script>
 </head>
 <body>
     <h2 class="bodoni-moda-title">PAY</h2>
@@ -58,17 +74,20 @@
             <div class="input-line"></div>
         </div>
         <div class="input-wrapper amount-wrapper">
-            <input type="number" id="amount" name="amount" placeholder="Enter amount (INR)" aria-label="Enter amount in INR" max="9999" oninput="checkMaxValue(this)">
+            <input type="number" id="amount" name="amount" placeholder="Enter amount (INR)" aria-label="Enter amount in INR" max="2000" oninput="checkMaxValue(this)">
             <div class="input-line"></div>
         </div>
-        <button class="submit-btn" onclick="submitAmount()">
-            <span>Pay</span>
-            <img src="https://raw.githubusercontent.com/parthxbhardwaj/parthxbhardwaj/main/69845.svg" alt="UPI Logo">
-        </button>
+        <div class="button-container">
+            <button class="button" onclick="submitAmount()">
+                <span>Pay</span>
+                <img src="https://raw.githubusercontent.com/parthxbhardwaj/parthxbhardwaj/main/69845.svg" alt="UPI Logo">
+            </button>
+            <button class="button" onclick="generateQRCode()">
+                <span>Generate QR</span>
+            </button>
+        </div>
     </div>
-    <div class="image-container">
-        <img src="https://raw.githubusercontent.com/parthxbhardwaj/parthxbhardwaj/main/1719103491320.jpg" alt="QR Code for UPI Payment" onclick="redirectToUPI()">
-    </div>
+     <div class="image-container" id="qrcode"></div>
 
     <footer>
         <em>Follow 💯 <a href="https://linktr.ee/parthbhardwaj" style="color: white;">Parth Bhardwaj</a></em>
@@ -99,48 +118,42 @@
                 alert('Please enter a valid amount up to ₹2,000.');
                 return;
             }
-            
+
             let notes = '';
             if (name) {
-                // Format the name input into UPI notes syntax
                 notes = `&tn=${encodeURIComponent(name)}`;
             }
             
-            const paymentLink = `upi://pay?pa=parthbhardwaj@axisb&pn=Parth%20Bhardwaj&cu=INR&am=${amount}${notes}`;
-            window.location.href = paymentLink;
+            const paymentLink = `upi://pay?pa=parthbhardwaj@upi&pn=Parth%20Bhardwaj&am=${amount}&cu=INR${notes}`;
+            window.open(paymentLink, '_blank');
         }
 
-        function redirectToUPI() {
-            const amount = document.getElementById('amount').value;
-            
-            if (!amount || isNaN(amount) || amount > 2000) {
-                alert('Please enter a valid amount up to ₹2,000.');
-                return;
-            }
-            
-            const paymentLink = `upi://pay?pa=parthbhardwaj@axisb&pn=Parth%20Bhardwaj&cu=INR&am=${amount || ''}`;
-            window.location.href = paymentLink;
-        }
-        function checkMaxValue(input) {
+ function generateQRCode() {
+    const amount = document.getElementById('amount').value;
+    const qrContainer = document.getElementById('qrcode');
+
+    if (!amount || isNaN(amount) || amount <= 0 || amount > 2000) {
+        alert('Please enter a valid amount up to ₹2,000.');
+        return;
+    }
+
+    const qrCode = new QRCode(qrContainer, {
+        text: `upi://pay?pa=parthbhardwaj@upi&pn=Parth%20Bhardwaj&am=${amount}&cu=INR`,
+        width: 200,
+        height: 200
+    });
+
+    qrContainer.style.display = 'block';
+}
+
+    function checkMaxValue(input) {
         if (input.value.length > 7) {
-            input.value = 0; 
-        }
-         if (input.value > 2000) { 
-             input.value = 0; // Limit the value to 0
+            input.value = '0';
+        } if (input.value > 2000) {
+            input.value = '0';
         }
     }
-    // JavaScript code to handle input focus
-document.addEventListener('DOMContentLoaded', function () {
-    const amountInput = document.getElementById('amount');
 
-    amountInput.addEventListener('focus', function () {
-        this.classList.add('focus');
-    });
-
-    amountInput.addEventListener('blur', function () {
-        this.classList.remove('focus');
-    });
-});
     </script>
 </body>
 </html>
