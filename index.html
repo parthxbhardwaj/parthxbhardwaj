@@ -70,7 +70,7 @@
     <h1 class="bodoni-moda-title">PARTH BHARDWAJ</h1>
     <div class="input-container">
         <div class="input-wrapper">
-            <input type="text" id="name" name="name" placeholder="Name (optional)" aria-label="Name (Optional)" oninput="capitalizeWords(this); updateQRCode()">
+            <input type="text" id="name" name="name" placeholder="Name (optional)" aria-label="Name (Optional)" oninput="capitalizeWords(this)">
             <div class="input-line"></div>
         </div>
         <div class="input-wrapper amount-wrapper">
@@ -153,29 +153,7 @@
             input.value = '0';
         }
     }
-function updateQRCode() {
-    const name = document.getElementById('name').value;
-    const amount = document.getElementById('amount').value;
-    const qrContainer = document.getElementById('qrcode');
 
-    if (!amount || isNaN(amount) || amount <= 0 || amount > 2000) {
-        alert('Please enter a valid amount up to ₹2,000.');
-        return;
-    }
-
-    let transactionNote = '';
-    if (name) {
-        transactionNote = `&tn=${encodeURIComponent(name)}`;
-    }
-
-    const qrCode = new QRCode(qrContainer, {
-        text: `upi://pay?pa=parthbhardwaj@upi&pn=Parth%20Bhardwaj&am=${amount}&cu=INR${transactionNote}`,
-        width: 200,
-        height: 200
-    });
-
-    qrContainer.style.display = 'block';
-}
     </script>
 </body>
 </html>
