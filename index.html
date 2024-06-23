@@ -117,8 +117,11 @@
             window.location.href = paymentLink;
         }
         function checkMaxValue(input) {
-        if (input.value.length > 7) if (input.value > 2000) {
-            input.value = 0; // Limit the value to 0
+        if (input.value.length > 7) {
+            input.value = 0; 
+        }
+         if (input.value > 2000) { 
+             input.value = 0; // Limit the value to 0
         }
     }
     </script>
