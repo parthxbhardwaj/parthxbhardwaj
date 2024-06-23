@@ -9,16 +9,17 @@
     <title>Parth Bhardwaj</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap" rel="stylesheet">
     <style>
-        .hind-siliguri-light { font-family: "Hind Siliguri", sans-serif; font-weight: 300; font-style: normal; }
-        .hind-siliguri-regular { font-family: "Hind Siliguri", sans-serif; font-weight: 400; font-style: normal; }
-        .hind-siliguri-medium { font-family: "Hind Siliguri", sans-serif; font-weight: 500; font-style: normal; }
-        .hind-siliguri-semibold { font-family: "Hind Siliguri", sans-serif; font-weight: 600; font-style: normal; }
-        .hind-siliguri-bold { font-family: "Hind Siliguri", sans-serif; font-weight: 700; font-style: normal; }
+        .bodoni-moda-title {
+            font-family: "Bodoni Moda", serif;
+            font-optical-sizing: auto;
+            font-weight: 700;
+            font-style: normal;
+        }
         html, body { height: 100%; margin: 0; overflow: hidden; background-color: #d1cfec; background-image: url('https://raw.githubusercontent.com/parthxbhardwaj/parthxbhardwaj/main/peakpx.jpg'); background-size: cover; background-position: center; }
-        body { color: white; font-family: 'Hind Siliguri', sans-serif; text-align: center; display: flex; justify-content: flex-start; align-items: center; flex-direction: column; padding-top: 1px; }
-        h1, h2 { font-family: 'Hind Siliguri', sans-serif; font-weight: 700; margin-bottom: 0; opacity: 0; transform: translateX(-100%); animation: fadeInFromLeft 2s forwards; position: relative; display: inline-block; }
+        body { color: white; font-family: 'Bodoni Moda', serif; text-align: center; display: flex; justify-content: flex-start; align-items: center; flex-direction: column; padding-top: 1px; }
+        h1, h2 { margin-bottom: 0; opacity: 0; transform: translateX(-100%); animation: fadeInFromLeft 2s forwards; position: relative; display: inline-block; }
         h1 { font-size: 8vw; margin-bottom: 25px; text-decoration: underline; }
         h2 { font-size: 6vw; margin-bottom: 0; }
         @keyframes fadeInFromLeft { to { opacity: 1; transform: translateX(0); } }
@@ -39,11 +40,11 @@
     </style>
 </head>
 <body>
-    <h2 class="hind-siliguri-bold">PAY TO</h2>
-    <h1 class="hind-siliguri-bold">PARTH BHARDWAJ</h1>
-    <div class="input-container hind-siliguri-regular">
+    <h2 class="bodoni-moda-title">PAY TO</h2>
+    <h1 class="bodoni-moda-title">PARTH BHARDWAJ</h1>
+    <div class="input-container">
         <div class="input-wrapper">
-            <input type="number" id="amount" name="amount" placeholder="Enter amount (INR)" aria-label="Enter amount in INR" max="200000">
+            <input type="number" id="amount" name="amount" placeholder="Enter amount (INR)" aria-label="Enter amount in INR" max="2000">
         </div>
         <button class="submit-btn" onclick="submitAmount()">
             Submit
@@ -70,7 +71,7 @@
         function submitAmount() {
             const amount = document.getElementById('amount').value;
             if (!amount || isNaN(amount) || amount <= 0 || amount > 2000) {
-                alert('Please enter a valid amount up to ₹2,000 ');
+                alert('Please enter a valid amount up to ₹2,000.');
                 return;
             }
             const paymentLink = `upi://pay?pa=parthbhardwaj@axisb&pn=Parth%20Bhardwaj&cu=INR&am=${amount}`;
@@ -79,8 +80,8 @@
 
         function redirectToUPI() {
             const amount = document.getElementById('amount').value;
-            if (amount > 200000) {
-                alert('Please enter a valid amount up to 200,000 INR.');
+            if (amount > 2000) {
+                alert('Please enter a valid amount up to ₹2,000.');
                 return;
             }
             const paymentLink = `upi://pay?pa=parthbhardwaj@axisb&pn=Parth%20Bhardwaj&cu=INR&am=${amount || ''}`;
