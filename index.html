@@ -27,8 +27,10 @@
         @keyframes fadeInFromRight { to { opacity: 1; transform: translateX(0); } }
         .input-wrapper { position: relative; display: inline-block; width: 300px; margin-bottom: 15px; }
         .amount-wrapper::before { content: '₹'; position: absolute; left: 30px; top: 50%; transform: translateY(-50%); font-size: 1.85em; color: white; }
-        input[type="number"], input[type="text"] { padding: 12px; font-size: 1.10em; border: none; box-sizing: border-box; width: calc(100% - 46px); background-color: transparent; color: white; text-align: center; font-family: 'Poppins', sans-serif; outline: none; position: relative; }
-        input[type="number"]::placeholder, input[type="text"]::placeholder { color: rgba(255, 255, 255, 0.8); font-family: 'Poppins', sans-serif; font-size: 0.9em; }
+        input[type="number"], input[type="text"] { padding: 12px; font-size: 1.10em; border: none; box-sizing: border-box; width: calc(100% - 46px); background-color: transparent; color: white; text-align: center; font-family: 'Poppins', sans-serif; outline: none; position: relative; transition: background-color 0.3s ease, box-shadow 0.3s ease; }
+        input[type="number"]::placeholder, input[type="text"]::placeholder { color: rgba(255, 255, 255, 0.8); font-family: 'Poppins', sans-serif; font-size: 0.9em; transition: transform 0.3s ease, opacity 0.3s ease; }
+        input:focus { background-color: rgba(255, 255, 255, 0.1); box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+        input:focus::placeholder { transform: translateY(-20px); opacity: 0; }
         .input-wrapper .input-line { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: 2px; width: 0; background-color: white; transition: width 0.3s ease; }
         .input-wrapper input:focus + .input-line { width: 80%; }
         .submit-btn { padding: 12px 60px; font-size: 1.5em; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; margin-top: 15px; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s ease; font-family: 'Poppins', sans-serif; position: relative; overflow: hidden; }
@@ -43,7 +45,7 @@
     </style>
 </head>
 <body>
-    <h2 class="bodoni-moda-title">PAY TO</h2>
+    <h2 class="bodoni-moda-title">PAY</h2>
     <h1 class="bodoni-moda-title">PARTH BHARDWAJ</h1>
     <div class="input-container">
         <div class="input-wrapper">
@@ -51,7 +53,7 @@
             <div class="input-line"></div>
         </div>
         <div class="input-wrapper amount-wrapper">
-            <input type="number" id="amount" name="amount" placeholder="Enter amount (INR)" aria-label="Enter amount in INR" max="2000">
+            <input type="number" id="amount" name="amount" placeholder="Enter amount (INR)" aria-label="Enter amount in INR" max="9999" oninput="checkMaxValue(this)">
             <div class="input-line"></div>
         </div>
         <button class="submit-btn" onclick="submitAmount()">
@@ -114,6 +116,11 @@
             const paymentLink = `upi://pay?pa=parthbhardwaj@axisb&pn=Parth%20Bhardwaj&cu=INR&am=${amount || ''}`;
             window.location.href = paymentLink;
         }
+        function checkMaxValue(input) {
+        if (input.value > 9999) {
+            input.value = 0000; // Limit the value to 9999
+        }
+    }
     </script>
 </body>
 </html>
