@@ -3,135 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Pay Parth Bhardwaj using UPI">
     <title>Parth Bhardwaj</title>
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        html, body {
-            height: 100%;
-            margin: 0;
-            overflow: hidden; /* Prevents scrolling in both directions */
-            background-color: #d1cfec; /* Background color changed */
-        }
-        body {
-            color: black; /* Adjusted text color to black for better contrast */
-            font-family: Arial, sans-serif;
-            text-align: center;
-            display: flex;
-            justify-content: flex-start;
-            align-items: center;
-            flex-direction: column;
-            padding-top: 1px; /* Adjust this value to move the content further down or up */
-        }
-        h1 {
-            font-family: 'Cormorant Garamond', serif; /* Use the Cormorant Garamond font */
-            font-weight: 700; /* Bold font weight */
-            font-style: normal; /* You can use 'italic' for italics */
-            font-size: 10vw; /* Font size is now responsive to the viewport width */
-            margin-bottom: 20px;
-            padding: 10px 20px;
-            border-radius: 10px;
-            opacity: 0;
-            transform: translateX(-100%);
-            animation: fadeInFromLeft 2s forwards;
-            position: relative; /* Added for pseudo-elements positioning */
-        }
-        h1::before, h1::after {
-            content: "";
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 1px;
-            background-color: black;
-            border-top: 1px solid black;
-            border-bottom: 1px solid black;
-        }
-        h1::before {
-            margin-left: 20px; /* Adjust the spacing */
-        }
-        h1::after {
-            margin-right: 20px; /* Adjust the spacing */
-        }
-        @keyframes fadeInFromLeft {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        .input-container {
-            margin-top: 150px; /* Adjusted the margin to move the input box down more */
-            opacity: 0;
-            transform: translateX(100%);
-            animation: fadeInFromRight 1s forwards 0.5s; /* Adds delay to the animation */
-        }
-        @keyframes fadeInFromRight {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-        label {
-            display: block;
-            font-size: 1.2em;
-            margin-bottom: 15px; /* Increased the gap between the label and the input box */
-            text-transform: uppercase;
-        }
-        .input-wrapper {
-            position: relative;
-            display: inline-block;
-        }
-        .input-wrapper::before {
-            content: '₹';
-            position: absolute;
-            left: 12px; /* Adjusted the position slightly towards the right */
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.10em; /* Increased the size of the ₹ sign */
-            color: black;
-        }
-        input[type="number"] {
-            padding: 10px 10px 10px 23px; /* Adjusted padding to make space for the ₹ sign and gap */
-            font-size: 1.10em;
-            border: none; /* Removed border */
-            border-radius: 0; /* Removed border-radius */
-            box-sizing: border-box;
-            width: 200px;
-        }
-        input[type="submit"] {
-            padding: 10px 20px;
-            font-size: 1em;
-            border: none;
-            border-radius: 5px;
-            background-color: #4CAF50;
-            color: white;
-            cursor: pointer;
-            margin-top: 10px; /* Added margin-top for spacing on smaller screens */
-        }
-        input[type="submit"]:hover {
-            background-color: #45a049;
-        }
-        @media (max-width: 600px) {
-            .input-wrapper, input[type="submit"] {
-                display: block;
-                margin: 0 auto;
-                margin-bottom: 10px; /* Added margin-bottom to separate the input and button */
-            }
-            input[type="submit"] {
-                margin-top: 10px;
-            }
-        }
+        .hind-siliguri-light { font-family: "Hind Siliguri", sans-serif; font-weight: 300; font-style: normal; }
+        .hind-siliguri-regular { font-family: "Hind Siliguri", sans-serif; font-weight: 400; font-style: normal; }
+        .hind-siliguri-medium { font-family: "Hind Siliguri", sans-serif; font-weight: 500; font-style: normal; }
+        .hind-siliguri-semibold { font-family: "Hind Siliguri", sans-serif; font-weight: 600; font-style: normal; }
+        .hind-siliguri-bold { font-family: "Hind Siliguri", sans-serif; font-weight: 700; font-style: normal; }
+        html, body { height: 100%; margin: 0; overflow: hidden; background-color: #d1cfec; background-image: url('https://raw.githubusercontent.com/parthxbhardwaj/parthxbhardwaj/main/peakpx.jpg'); background-size: cover; background-position: center; }
+        body { color: white; font-family: 'Hind Siliguri', sans-serif; text-align: center; display: flex; justify-content: flex-start; align-items: center; flex-direction: column; padding-top: 1px; }
+        h1, h2 { font-family: 'Hind Siliguri', sans-serif; font-weight: 700; margin-bottom: 0; opacity: 0; transform: translateX(-100%); animation: fadeInFromLeft 2s forwards; position: relative; }
+        h1 { font-size: 8vw; margin-bottom: 25px; text-decoration: underline; }
+        h2 { font-size: 6vw; margin-bottom: 0; }
+        @keyframes fadeInFromLeft { to { opacity: 1; transform: translateX(0); } }
+        .input-container { margin-top: 100px; opacity: 0; transform: translateX(100%); animation: fadeInFromRight 1s forwards 0.5s; }
+        @keyframes fadeInFromRight { to { opacity: 1; transform: translateX(0); } }
+        label { display: block; font-size: 1.2em; margin-bottom: 10px; text-transform: uppercase; }
+        .input-wrapper { position: relative; display: inline-block; }
+        .input-wrapper::before { content: '₹'; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 1.15em; color: white; }
+        input[type="number"] { padding: 10px 10px 10px 23px; font-size: 1.10em; border: none; border-radius: 0; box-sizing: border-box; width: 200px; background-color: black; color: white; }
+        input[type="submit"] { padding: 10px 20px; font-size: 1em; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; margin-top: 10px; }
+        input[type="submit"]:hover { background-color: #45a049; }
+        .image-container { margin-top: 20px; }
+        .image-container img { width: 200px; height: 200px; border: 2px solid white; } /* Increased size of the image */
+        @media (max-width: 600px) { .input-wrapper, input[type="submit"] { display: block; margin: 0 auto; margin-bottom: 10px; } input[type="submit"] { margin-top: 10px; } }
     </style>
 </head>
 <body>
-    <h1>PARTH BHARDWAJ</h1>
-    <div class="input-container">
-        <label for="amount">INSERT AMOUNT IN INR:</label>
+    <h2 class="hind-siliguri-bold">PAY TO</h2>
+    <h1 class="hind-siliguri-bold">PARTH BHARDWAJ</h1>
+    <div class="input-container hind-siliguri-regular">
+        <label for="amount">INSERT AMOUNT</label>
         <div class="input-wrapper">
-            <input type="number" id="amount" name="amount" placeholder="Enter amount">
+            <input type="number" id="amount" name="amount" placeholder="Enter amount (INR)" aria-label="Enter amount in INR">
         </div>
         <input type="submit" value="Submit" onclick="submitAmount()">
     </div>
+    <div class="image-container">
+        <img src="https://raw.githubusercontent.com/parthxbhardwaj/parthxbhardwaj/main/1719103491320.jpg" alt="QR Code">
+    </div>
+
+    <footer style="position: fixed; bottom: 0; left: 0; width: 100%; background-color: black; padding: 10px; text-align: center;">
+        Made with ❤️ by Parth Bhardwaj
+    </footer>
 
     <script>
         window.onload = function() {
@@ -143,8 +61,8 @@
         };
 
         function submitAmount() {
-            var amount = document.getElementById('amount').value;
-            var paymentLink = 'upi://pay?pa=parthbhardwaj@axisb&pn=Parth%20Bhardwaj&cu=INR&am=' + amount;
+            const amount = document.getElementById('amount').value;
+            const paymentLink = `upi://pay?pa=parthbhardwaj@axisb&pn=Parth%20Bhardwaj&cu=INR&am=${amount}`;
             window.location.href = paymentLink;
         }
     </script>
