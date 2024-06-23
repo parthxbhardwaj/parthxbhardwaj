@@ -42,6 +42,11 @@
         @keyframes fadeInQR { to { opacity: 1; } }
         @media (max-width: 600px) { .input-wrapper, .submit-btn { display: block; margin: 0 auto; margin-bottom: 15px; } .submit-btn { margin-top: 15px; } }
         footer { position: fixed; bottom: 0; left: 0; width: 100%; background-color: black; padding: 10px; text-align: center; }
+        
+        /* CSS code to increase font size when input is focused */
+.input-wrapper.amount-wrapper input[type="number"]:focus {
+    font-size: 1.7em; /* Increase font size when focused */
+}
     </style>
 </head>
 <body>
@@ -124,6 +129,18 @@
              input.value = 0; // Limit the value to 0
         }
     }
+    // JavaScript code to handle input focus
+document.addEventListener('DOMContentLoaded', function () {
+    const amountInput = document.getElementById('amount');
+
+    amountInput.addEventListener('focus', function () {
+        this.classList.add('focus');
+    });
+
+    amountInput.addEventListener('blur', function () {
+        this.classList.remove('focus');
+    });
+});
     </script>
 </body>
 </html>
