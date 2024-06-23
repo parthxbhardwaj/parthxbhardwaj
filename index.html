@@ -9,8 +9,7 @@
     <title>Parth Bhardwaj</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap" rel="stylesheet">
-    <link rel="preload" href="https://raw.githubusercontent.com/parthxbhardwaj/parthxbhardwaj/main/peakpx.jpg" as="image">
+    <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         .bodoni-moda-title {
             font-family: "Bodoni Moda", serif;
@@ -24,19 +23,22 @@
         h1 { font-size: 8vw; margin-bottom: 25px; text-decoration: underline; }
         h2 { font-size: 6vw; margin-bottom: 0; }
         @keyframes fadeInFromLeft { to { opacity: 1; transform: translateX(0); } }
-        .input-container { margin-top: 125px; opacity: 0; transform: translateX(100%); animation: fadeInFromRight 1s forwards 0.5s; }
+        .input-container { margin-top: 75px; opacity: 0; transform: translateX(100%); animation: fadeInFromRight 1s forwards 0.5s; }
         @keyframes fadeInFromRight { to { opacity: 1; transform: translateX(0); } }
-        .input-wrapper { position: relative; display: inline-block; width: 200px; margin-bottom: 10px; }
-        .amount-wrapper::before { content: '₹'; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 1.15em; color: white; }
-        input[type="number"], input[type="text"] { padding: 10px 10px 10px 23px; font-size: 1.10em; border: none; border-radius: 0; box-sizing: border-box; width: 100%; background-color: black; color: white; text-align: center; }
-        input[type="number"]::placeholder, input[type="text"]::placeholder { text-align: center; }
-        .submit-btn { padding: 10px 20px; font-size: 1em; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; }
-        .submit-btn:hover { background-color: #45a049; }
-        .submit-btn img { margin-left: 10px; height: 1em; width: auto; }
+        .input-wrapper { position: relative; display: inline-block; width: 300px; margin-bottom: 15px; }
+        .amount-wrapper::before { content: '₹'; position: absolute; left: 30px; top: 50%; transform: translateY(-50%); font-size: 1.85em; color: white; }
+        input[type="number"], input[type="text"] { padding: 12px; font-size: 1.10em; border: none; box-sizing: border-box; width: calc(100% - 46px); background-color: transparent; color: white; text-align: center; font-family: 'Poppins', sans-serif; outline: none; position: relative; }
+        input[type="number"]::placeholder, input[type="text"]::placeholder { color: rgba(255, 255, 255, 0.8); font-family: 'Poppins', sans-serif; font-size: 0.9em; }
+        .input-wrapper .input-line { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); height: 2px; width: 0; background-color: white; transition: width 0.3s ease; }
+        .input-wrapper input:focus + .input-line { width: 80%; }
+        .submit-btn { padding: 12px 60px; font-size: 1.5em; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; margin-top: 15px; display: flex; align-items: center; justify-content: center; transition: background-color 0.3s ease; font-family: 'Poppins', sans-serif; position: relative; overflow: hidden; }
+        .submit-btn span { position: relative; z-index: 1; }
+        .submit-btn img { position: absolute; top: 50%; right: 10px; transform: translateY(-50%); height: 1.5em; width: auto; transition: transform 0.3s ease; }
+        .submit-btn:hover img { transform: scale(1.5); }
         .image-container { margin-top: 20px; opacity: 0; animation: fadeInQR 2s forwards 1s; }
         .image-container img { width: 200px; height: 200px; border: 2px solid white; cursor: pointer; }
         @keyframes fadeInQR { to { opacity: 1; } }
-        @media (max-width: 600px) { .input-wrapper, .submit-btn { display: block; margin: 0 auto; margin-bottom: 10px; } .submit-btn { margin-top: 10px; } }
+        @media (max-width: 600px) { .input-wrapper, .submit-btn { display: block; margin: 0 auto; margin-bottom: 15px; } .submit-btn { margin-top: 15px; } }
         footer { position: fixed; bottom: 0; left: 0; width: 100%; background-color: black; padding: 10px; text-align: center; }
     </style>
 </head>
@@ -45,13 +47,15 @@
     <h1 class="bodoni-moda-title">PARTH BHARDWAJ</h1>
     <div class="input-container">
         <div class="input-wrapper">
-            <input type="text" id="name" name="name" placeholder="Name (Optional)" aria-label="Name (Optional)" oninput="capitalizeWords(this)">
+            <input type="text" id="name" name="name" placeholder="Name (optional)" aria-label="Name (Optional)" oninput="capitalizeWords(this)">
+            <div class="input-line"></div>
         </div>
         <div class="input-wrapper amount-wrapper">
             <input type="number" id="amount" name="amount" placeholder="Enter amount (INR)" aria-label="Enter amount in INR" max="2000">
+            <div class="input-line"></div>
         </div>
         <button class="submit-btn" onclick="submitAmount()">
-            Submit
+            <span>Submit</span>
             <img src="https://raw.githubusercontent.com/parthxbhardwaj/parthxbhardwaj/main/upi_logo_icon_170312.svg" alt="UPI Logo">
         </button>
     </div>
@@ -81,21 +85,32 @@
         }
 
         function submitAmount() {
+            const name = document.getElementById('name').value;
             const amount = document.getElementById('amount').value;
+            
             if (!amount || isNaN(amount) || amount <= 0 || amount > 2000) {
                 alert('Please enter a valid amount up to ₹2,000.');
                 return;
             }
-            const paymentLink = `upi://pay?pa=parthbhardwaj@axisb&pn=Parth%20Bhardwaj&cu=INR&am=${amount}`;
+            
+            let notes = '';
+            if (name) {
+                // Format the name input into UPI notes syntax
+                notes = `&tn=${encodeURIComponent(name)}`;
+            }
+            
+            const paymentLink = `upi://pay?pa=parthbhardwaj@axisb&pn=Parth%20Bhardwaj&cu=INR&am=${amount}${notes}`;
             window.location.href = paymentLink;
         }
 
         function redirectToUPI() {
             const amount = document.getElementById('amount').value;
-            if (amount > 2000) {
+            
+            if (!amount || isNaN(amount) || amount > 2000) {
                 alert('Please enter a valid amount up to ₹2,000.');
                 return;
             }
+            
             const paymentLink = `upi://pay?pa=parthbhardwaj@axisb&pn=Parth%20Bhardwaj&cu=INR&am=${amount || ''}`;
             window.location.href = paymentLink;
         }
