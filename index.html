@@ -24,12 +24,12 @@
         h1 { font-size: 8vw; margin-bottom: 25px; text-decoration: underline; }
         h2 { font-size: 6vw; margin-bottom: 0; }
         @keyframes fadeInFromLeft { to { opacity: 1; transform: translateX(0); } }
-        .input-container { margin-top: 150px; opacity: 0; transform: translateX(100%); animation: fadeInFromRight 1s forwards 0.5s; }
+        .input-container { margin-top: 125px; opacity: 0; transform: translateX(100%); animation: fadeInFromRight 1s forwards 0.5s; }
         @keyframes fadeInFromRight { to { opacity: 1; transform: translateX(0); } }
-        .input-wrapper { position: relative; display: inline-block; width: 200px; }
-        .input-wrapper::before { content: '₹'; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 1.15em; color: white; }
-        input[type="number"] { padding: 10px 10px 10px 23px; font-size: 1.10em; border: none; border-radius: 0; box-sizing: border-box; width: 100%; background-color: black; color: white; text-align: center; }
-        input[type="number"]::placeholder { text-align: center; }
+        .input-wrapper { position: relative; display: inline-block; width: 200px; margin-bottom: 10px; }
+        .amount-wrapper::before { content: '₹'; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 1.15em; color: white; }
+        input[type="number"], input[type="text"] { padding: 10px 10px 10px 23px; font-size: 1.10em; border: none; border-radius: 0; box-sizing: border-box; width: 100%; background-color: black; color: white; text-align: center; }
+        input[type="number"]::placeholder, input[type="text"]::placeholder { text-align: center; }
         .submit-btn { padding: 10px 20px; font-size: 1em; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; }
         .submit-btn:hover { background-color: #45a049; }
         .submit-btn img { margin-left: 10px; height: 1em; width: auto; }
@@ -45,6 +45,9 @@
     <h1 class="bodoni-moda-title">PARTH BHARDWAJ</h1>
     <div class="input-container">
         <div class="input-wrapper">
+            <input type="text" id="name" name="name" placeholder="Name (Optional)" aria-label="Name (Optional)" oninput="capitalizeWords(this)">
+        </div>
+        <div class="input-wrapper amount-wrapper">
             <input type="number" id="amount" name="amount" placeholder="Enter amount (INR)" aria-label="Enter amount in INR" max="2000">
         </div>
         <button class="submit-btn" onclick="submitAmount()">
@@ -68,6 +71,14 @@
                 document.getElementById('amount').value = amountParam;
             }
         };
+
+        function capitalizeWords(input) {
+            const words = input.value.split(' ');
+            for (let i = 0; i < words.length; i++) {
+                words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1).toLowerCase();
+            }
+            input.value = words.join(' ');
+        }
 
         function submitAmount() {
             const amount = document.getElementById('amount').value;
