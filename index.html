@@ -18,22 +18,23 @@
         .hind-siliguri-bold { font-family: "Hind Siliguri", sans-serif; font-weight: 700; font-style: normal; }
         html, body { height: 100%; margin: 0; overflow: hidden; background-color: #d1cfec; background-image: url('https://raw.githubusercontent.com/parthxbhardwaj/parthxbhardwaj/main/peakpx.jpg'); background-size: cover; background-position: center; }
         body { color: white; font-family: 'Hind Siliguri', sans-serif; text-align: center; display: flex; justify-content: flex-start; align-items: center; flex-direction: column; padding-top: 1px; }
-        h1, h2 { font-family: 'Hind Siliguri', sans-serif; font-weight: 700; margin-bottom: 0; opacity: 0; transform: translateX(-100%); animation: fadeInFromLeft 2s forwards; position: relative; }
+        h1, h2 { font-family: 'Hind Siliguri', sans-serif; font-weight: 700; margin-bottom: 0; opacity: 0; transform: translateX(-100%); animation: fadeInFromLeft 2s forwards; position: relative; display: inline-block; }
         h1 { font-size: 8vw; margin-bottom: 25px; text-decoration: underline; }
         h2 { font-size: 6vw; margin-bottom: 0; }
         @keyframes fadeInFromLeft { to { opacity: 1; transform: translateX(0); } }
         .input-container { margin-top: 100px; opacity: 0; transform: translateX(100%); animation: fadeInFromRight 1s forwards 0.5s; }
         @keyframes fadeInFromRight { to { opacity: 1; transform: translateX(0); } }
-        label { display: block; font-size: 1.2em; margin-bottom: 10px; text-transform: uppercase; }
-        .input-wrapper { position: relative; display: inline-block; }
+        .input-wrapper { position: relative; display: inline-block; width: 200px; }
         .input-wrapper::before { content: '₹'; position: absolute; left: 10px; top: 50%; transform: translateY(-50%); font-size: 1.15em; color: white; }
-        input[type="number"] { padding: 10px 10px 10px 23px; font-size: 1.10em; border: none; border-radius: 0; box-sizing: border-box; width: 200px; background-color: black; color: white; }
-        input[type="submit"] { padding: 10px 20px; font-size: 1em; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; margin-top: 10px; }
-        input[type="submit"]:hover { background-color: #45a049; }
+        input[type="number"] { padding: 10px 10px 10px 23px; font-size: 1.10em; border: none; border-radius: 0; box-sizing: border-box; width: 100%; background-color: black; color: white; text-align: center; }
+        input[type="number"]::placeholder { text-align: center; }
+        .submit-btn { padding: 10px 20px; font-size: 1em; border: none; border-radius: 5px; background-color: #4CAF50; color: white; cursor: pointer; margin-top: 10px; display: flex; align-items: center; justify-content: center; }
+        .submit-btn:hover { background-color: #45a049; }
+        .submit-btn img { margin-left: 10px; height: 1em; width: auto; }
         .image-container { margin-top: 20px; opacity: 0; animation: fadeInQR 2s forwards 1s; }
         .image-container img { width: 200px; height: 200px; border: 2px solid white; cursor: pointer; }
         @keyframes fadeInQR { to { opacity: 1; } }
-        @media (max-width: 600px) { .input-wrapper, input[type="submit"] { display: block; margin: 0 auto; margin-bottom: 10px; } input[type="submit"] { margin-top: 10px; } }
+        @media (max-width: 600px) { .input-wrapper, .submit-btn { display: block; margin: 0 auto; margin-bottom: 10px; } .submit-btn { margin-top: 10px; } }
         footer { position: fixed; bottom: 0; left: 0; width: 100%; background-color: black; padding: 10px; text-align: center; }
     </style>
 </head>
@@ -41,18 +42,20 @@
     <h2 class="hind-siliguri-bold">PAY TO</h2>
     <h1 class="hind-siliguri-bold">PARTH BHARDWAJ</h1>
     <div class="input-container hind-siliguri-regular">
-        <label for="amount">INSERT AMOUNT</label>
         <div class="input-wrapper">
-            <input type="number" id="amount" name="amount" placeholder="Enter amount (INR)" aria-label="Enter amount in INR">
+            <input type="number" id="amount" name="amount" placeholder="Enter amount (INR)" aria-label="Enter amount in INR" max="200000">
         </div>
-        <input type="submit" value="Submit" onclick="submitAmount()">
+        <button class="submit-btn" onclick="submitAmount()">
+            Submit
+            <img src="https://raw.githubusercontent.com/parthxbhardwaj/parthxbhardwaj/main/upi_logo_icon_170312.svg" alt="UPI Logo">
+        </button>
     </div>
     <div class="image-container">
         <img src="https://raw.githubusercontent.com/parthxbhardwaj/parthxbhardwaj/main/1719103491320.jpg" alt="QR Code for UPI Payment" onclick="redirectToUPI()">
     </div>
 
     <footer>
-        Made with ❤️ by Parth Bhardwaj
+        <em>Made with ❤️ by <a href="https://linktr.ee/parthbhardwaj" style="color: white;">Parth Bhardwaj</a></em>
     </footer>
 
     <script>
@@ -66,8 +69,8 @@
 
         function submitAmount() {
             const amount = document.getElementById('amount').value;
-            if (!amount || isNaN(amount) || amount <= 0) {
-                alert('Please enter a valid amount.');
+            if (!amount || isNaN(amount) || amount <= 0 || amount > 2000) {
+                alert('Please enter a valid amount up to ₹2,000 ');
                 return;
             }
             const paymentLink = `upi://pay?pa=parthbhardwaj@axisb&pn=Parth%20Bhardwaj&cu=INR&am=${amount}`;
@@ -76,6 +79,10 @@
 
         function redirectToUPI() {
             const amount = document.getElementById('amount').value;
+            if (amount > 200000) {
+                alert('Please enter a valid amount up to 200,000 INR.');
+                return;
+            }
             const paymentLink = `upi://pay?pa=parthbhardwaj@axisb&pn=Parth%20Bhardwaj&cu=INR&am=${amount || ''}`;
             window.location.href = paymentLink;
         }
