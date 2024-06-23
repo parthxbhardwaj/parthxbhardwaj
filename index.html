@@ -38,6 +38,8 @@
     <h1 class="hind-siliguri-bold">PARTH BHARDWAJ</h1>
     <div class="input-container hind-siliguri-regular">
         <label for="amount">INSERT AMOUNT</label>
+        <div class="input-container hind-siliguri-regular">
+        <label for="amount">INSERT AMOUNT</label>
         <div class="input-wrapper">
             <input type="number" id="amount" name="amount" placeholder="Enter amount (INR)" aria-label="Enter amount in INR">
         </div>
@@ -53,7 +55,7 @@
         Made with ❤️ by Parth Bhardwaj
     </footer>
 
-    <script> 
+    <script>
         window.onload = function() {
             const urlParams = new URLSearchParams(window.location.search);
             const amountParam = urlParams.get('amount');
