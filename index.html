@@ -90,89 +90,99 @@
         </div>
     </div>
     <div class="image-container" id="qrcode"></div>
+    <!-- Loading Spinner -->
+<div id="spinner" style="display: none;">
+    <img src="loading-spinner.gif" alt="Loading Spinner">
+</div>
 
     <footer>
         <em>Follow 💯 <a href="https://linktr.ee/parthbhardwaj" style="color: white;">Parth Bhardwaj</a></em>
     </footer>
 
     <script>
-        window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const amountParam = urlParams.get('amount');
-            if (amountParam) {
-                document.getElementById('amount').value = amountParam;
-            }
-        };
+    window.onload = function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const amountParam = urlParams.get('amount');
+        if (amountParam) {
+            document.getElementById('amount').value = amountParam;
+        }
+    };
 
-        function capitalizeWords(input) {
-            const words = input.value.split(' ');
-            for (let i = 0; i < words.length; i++) {
-                words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1).toLowerCase();
-            }
-            input.value = words.join(' ');
+    function capitalizeWords(input) {
+        const words = input.value.split(' ');
+        for (let i = 0; i < words.length; i++) {
+            words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1).toLowerCase();
+        }
+        input.value = words.join(' ');
+    }
+
+    function showError(message) {
+        const errorDiv = document.getElementById('amount-error');
+        errorDiv.style.display = 'block';
+        errorDiv.textContent = message;
+    }
+
+    function hideError() {
+        document.getElementById('amount-error').style.display = 'none';
+    }
+
+    function submitAmount() {
+        const name = document.getElementById('name').value;
+        const amount = document.getElementById('amount').value;
+        
+        if (!amount || isNaN(amount) || amount <= 0 || amount > 2000) {
+            showError('Please enter a valid amount up to ₹2,000.');
+            return;
+        }
+        hideError();
+
+        let notes = '';
+        if (name) {
+            notes = `&tn=${encodeURIComponent(name)}`;
         }
 
-        function showError(message) {
-            const errorDiv = document.getElementById('amount-error');
-            errorDiv.style.display = 'block';
-            errorDiv.textContent = message;
-        }
+        const paymentLink = `upi://pay?pa=pb8@upi&pn=Parth%20Bhardwaj&am=${amount}&cu=INR${notes}`;
+        window.open(paymentLink, '_blank');
+    }
 
-        function hideError() {
-            document.getElementById('amount-error').style.display ='none';
-        }
+    function generateQRCode() {
+        const amount = document.getElementById('amount').value;
+        const qrContainer = document.getElementById('qrcode');
+        const spinner = document.getElementById('spinner');
 
-        function submitAmount() {
-            const name = document.getElementById('name').value;
-            const amount = document.getElementById('amount').value;
-            
-            if (!amount || isNaN(amount) || amount <= 0 || amount > 2000) {
-                showError('Please enter a valid amount up to ₹2,000.');
-                return;
-            }
+        if (!amount || isNaN(amount) || amount <= 0 || amount > 2000) {
+            showError('Please enter a valid amount up to ₹2,000.');
+            return;
+        }
+        hideError();
+
+        spinner.style.display = 'block'; // Show the spinner
+
+        qrContainer.innerHTML = ''; // Clear previous QR code
+
+        const qrCode = new QRCode(qrContainer, {
+            text: `upi://pay?pa=pb8@upi&pn=Parth%20Bhardwaj&am=${amount}&cu=INR`,
+            width: 200,
+            height: 200
+        });
+
+        setTimeout(() => {
+            spinner.style.display = 'none'; // Hide the spinner after a delay (simulating QR generation)
+            qrContainer.style.display = 'block'; // Show the generated QR code
+        }, 2000); // Simulated delay, you can adjust this as needed
+    }
+
+    function checkMaxValue(input) {
+        if (input.value.length > 7) {
+            input.value = input.value.slice(0, 7);
+            showError('Maximum amount allowed is ₹2,000.');
+        } else if (input.value > 2000) {
+            input.value = 2000;
+            showError('Maximum amount allowed is ₹2,000.');
+        } else {
             hideError();
-
-            let notes = '';
-            if (name) {
-                notes = `&tn=${encodeURIComponent(name)}`;
-            }
-
-            const paymentLink = `upi://pay?pa=pb8@upi&pn=Parth%20Bhardwaj&am=${amount}&cu=INR${notes}`;
-            window.open(paymentLink, '_blank');
         }
-
-        function generateQRCode() {
-            const amount = document.getElementById('amount').value;
-            const qrContainer = document.getElementById('qrcode');
-
-            if (!amount || isNaN(amount) || amount <= 0 || amount > 2000) {
-                showError('Please enter a valid amount up to ₹2,000.');
-                return;
-            }
-            hideError();
-
-            qrContainer.innerHTML = ''; // Clear previous QR code
-
-            const qrCode = new QRCode(qrContainer, {
-                text: `upi://pay?pa=pb8@upi&pn=Parth%20Bhardwaj&am=${amount}&cu=INR`,
-                width: 200,
-                height: 200
-            });
-
-            qrContainer.style.display = 'block';
-        }
-
-        function checkMaxValue(input) {
-            if (input.value.length > 7) {
-                input.value = input.value.slice(0, 7);
-                showError('Maximum amount allowed is ₹2,000.');
-            } else if (input.value > 2000) {
-                input.value = 2000;
-                showError('Maximum amount allowed is ₹2,000.');
-            } else {
-                hideError();
-            }
-        }
-    </script>
+    }
+</script>
 </body>
 </html>
